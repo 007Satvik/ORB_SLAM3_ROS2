@@ -7,6 +7,9 @@
 #include <chrono>
 
 #include "rclcpp/rclcpp.hpp"
+#include "tf2_ros/transform_broadcaster.h"
+#include <tf2/LinearMath/Transform.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include "sensor_msgs/msg/image.hpp"
 
 #include "message_filters/subscriber.h"
@@ -44,6 +47,9 @@ private:
     std::shared_ptr<message_filters::Subscriber<sensor_msgs::msg::Image> > depth_sub;
 
     std::shared_ptr<message_filters::Synchronizer<approximate_sync_policy> > syncApproximate;
+    std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
+    // rclcpp::Node nh_;
+    rclcpp::Publisher<geometry_msgs::msg::PoseWithCovarianceStamped>::SharedPtr pub_;
 };
 
 #endif
